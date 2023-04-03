@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../blocs/bloc.dart';
+import 'dart:core';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -10,36 +12,51 @@ class LoginScreen extends StatelessWidget {
       child: Column(children: [
         emailField(),
         passwordField(),
-        Container(margin: const EdgeInsets.only(top:20.0),),
+        Container(
+          margin: const EdgeInsets.only(top: 20.0),
+        ),
         submitButton(),
       ]),
     );
   }
 
   Widget emailField() {
-    return const TextField(
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        hintText: 'you@example.com',
-        labelText: 'Email Address',
-      ),
+    return StreamBuilder(
+      stream: bloc.email,
+      builder: (context, snapshot) {
+        return TextField(
+          onChanged: bloc.changeEmail,
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+            hintText: 'you@example.com',
+            labelText: 'Email Address',
+            errorText: snapshot.error as String?,
+          ),
+        );
+      },
     );
   }
 
   Widget passwordField() {
-    return const TextField(
-      obscureText: true,
-      decoration: InputDecoration(
-        hintText: 'Password',
-        labelText: 'Password',
-      ),
-    );
+    return StreamBuilder(
+        stream: bloc.password,
+        builder: (context, snapshot) {
+          return TextField(
+            onChanged: bloc.changePassword,
+            obscureText: true,
+            decoration: InputDecoration(
+              hintText: 'Password',
+              labelText: 'Password',
+              errorText: snapshot.error as String?,
+            ),
+          );
+        });
   }
 
   Widget submitButton() {
     return ElevatedButton(
       child: const Text('Login'),
-         onPressed: () {},
+      onPressed: () {},
     );
   }
 }
