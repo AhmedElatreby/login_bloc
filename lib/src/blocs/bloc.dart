@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
-
 import 'validators.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -25,7 +23,6 @@ class Bloc with Validators {
 
     print('Email is $validEmail');
     print('password is $validPassword');
-
   }
 
   dispose() {

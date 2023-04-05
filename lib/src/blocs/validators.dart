@@ -11,11 +11,12 @@ class Validators {
   });
 
   final validatePassword = StreamTransformer<String, String>.fromHandlers(
-      handleData: (password, sink) {
-    if (password.length >= 8) {
-      sink.add(password);
-    } else {
-      sink.addError('Password must be at least 8 characters');
-    }
-  });
+    handleData: (password, sink) {
+      if (password.length >= 8) {
+        sink.add(password);
+      } else {
+        sink.addError('Password must be at least 8 characters');
+      }
+    },
+  );
 }
